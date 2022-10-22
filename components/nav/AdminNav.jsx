@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
-import { Button, Menu } from 'antd'
+import React from 'react'
+import { Menu, Layout } from 'antd'
+import Link from 'next/link'
 import {
   AppstoreOutlined,
   ContainerOutlined,
   DesktopOutlined,
   MailOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   PieChartOutlined,
 } from '@ant-design/icons'
+
+const { Sider } = Layout
 
 const getItem = (label, key, icon, children, type) => {
   return {
@@ -19,6 +20,7 @@ const getItem = (label, key, icon, children, type) => {
     type,
   }
 }
+
 const items = [
   getItem('Option 1', '1', <PieChartOutlined />),
   getItem('Option 2', '2', <DesktopOutlined />),
@@ -40,35 +42,30 @@ const items = [
 ]
 
 const AdminNav = () => {
-  const [collapsed, setCollapsed] = useState(false)
-
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed)
-  }
-
   return (
-    <div
-      style={{
-        width: 256,
-      }}
-    >
-      <Button
-        type="primary"
-        onClick={toggleCollapsed}
-        style={{
-          marginBottom: 16,
-        }}
-      >
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </Button>
+    <Sider collapsible>
       <Menu
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1', 'sub2']}
         mode="inline"
-        inlineCollapsed={collapsed}
-        items={items}
-      />
-    </div>
+      >
+        <Menu.Item key="1" icon={<PieChartOutlined />}>
+          <Link href="/admin">
+            <a>Dashboard</a>
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="2" icon={<DesktopOutlined />}>
+          <Link href="/admin">
+            <a>Dashboard</a>
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="3" icon={<ContainerOutlined />}>
+          <Link href="/admin">
+            <a>Dashboard</a>
+          </Link>
+        </Menu.Item>
+      </Menu>
+    </Sider>
   )
 }
 
